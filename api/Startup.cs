@@ -37,12 +37,16 @@ namespace api
                 });
             });
 
+            // Add CORS to DI
+            services.AddCors();
+
             // Add SignalR for realtime-functionality
             services.AddSignalR();
 
             // Add MVC Controllers and NetwonsoftJson to them
             services.AddControllers()
                 .AddNewtonsoftJson();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +65,13 @@ namespace api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // TODO: Remove after Development because this is very very insecure
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
             app.UseEndpoints(endpoints =>
             {
