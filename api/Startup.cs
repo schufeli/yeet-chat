@@ -26,15 +26,23 @@ namespace api
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            // User Swagger for API documentation
+            services.AddSwaggerGen(c => 
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Yeet-Api",
+                    Description = "Yeet Api Documentation"
+                });
+            });
+
+            // Add SignalR for realtime-functionality
+            services.AddSignalR();
+
             // Add MVC Controllers and NetwonsoftJson to them
             services.AddControllers()
                 .AddNewtonsoftJson();
-
-            // User Swagger for API documentation
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Values Api", Version = "v1" });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,14 +51,16 @@ namespace api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yeet-Chat v1")
+            );
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
 
             app.UseEndpoints(endpoints =>
             {

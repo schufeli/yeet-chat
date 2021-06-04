@@ -23,5 +23,10 @@ namespace api.Data
             builder.Entity<Message>()
                 .ToTable("Messages");
         }
+
+        #region Properties
+        public DbSet<Channel> Channels { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        #endregion
     }
 }
