@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
 {
@@ -9,6 +10,18 @@ namespace api.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            // Channel
+            builder.Entity<Channel>()
+                .ToTable("Channels");
+
+            builder.Entity<Channel>()
+                .HasMany(c => c.Messages)
+                .WithOne(m => m.Channel);
+
+            // Message
+            builder.Entity<Message>()
+                .ToTable("Messages");
         }
     }
 }
