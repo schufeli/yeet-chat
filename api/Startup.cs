@@ -1,11 +1,11 @@
 using api.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace api
 {
@@ -26,6 +26,20 @@ namespace api
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            // User Swagger for API documentation
+            services.AddSwaggerGen(c => 
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Yeet-Api",
+                    Description = "Yeet Api Documentation"
+                });
+            });
+
+            // Add SignalR for realtime-functionality
+            services.AddSignalR();
+
             // Add MVC Controllers and NetwonsoftJson to them
             services.AddControllers()
                 .AddNewtonsoftJson();
@@ -38,6 +52,13 @@ namespace api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yeet-Chat v1")
+            );
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
