@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ChannelComponent } from './channel/channel/channel.component';
 
 const routes: Routes = [
   {

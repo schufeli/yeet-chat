@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-
+import { ChannelModule } from './channel/channel.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +18,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    DashboardModule
+    DashboardModule,
+    ChannelModule
   ],
   providers: [],
   bootstrap: [AppComponent]
