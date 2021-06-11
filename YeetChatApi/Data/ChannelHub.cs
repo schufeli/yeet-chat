@@ -18,8 +18,6 @@ namespace YeetChatApi.Data
         public async Task Send(string channelId, string author, string content)
         {
             await Clients.Group(channelId).SendAsync("receive", author, content);
-
-
         }
     }
 }

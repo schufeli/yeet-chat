@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using YeetChatApi.Data;
+using YeetChatApi.Services;
 
 namespace YeetChatApi
 {
@@ -55,6 +56,8 @@ namespace YeetChatApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChannelHub>("/channel");
+
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!");
