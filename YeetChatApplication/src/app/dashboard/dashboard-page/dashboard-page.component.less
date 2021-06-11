@@ -3,10 +3,12 @@ mat-sidenav-content {
 }
 
 mat-sidenav {
-    width: 260px;
+    width: 25%;
+    min-width: 15rem;
     position: relative;
     height: 100vh;
     position: absolute;
+    overflow: hidden;
 }
 
 mat-sidenav-container {
@@ -18,9 +20,18 @@ mat-toolbar{
     width: 100%;
 }
 
+app-channel-list {
+    h1, mat-selection-list{
+        padding: 30px 35px;
+    }
+}
+
 #add-button {
     position: absolute;
     bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
+}
+.mat-list-single-selected-option{
+    background: rgba(255,255,255,.04);
 }
