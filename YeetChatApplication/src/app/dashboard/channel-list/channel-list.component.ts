@@ -23,7 +23,7 @@ export class ChannelListComponent implements OnInit {
     if (this.currentChannelId.length > 0) {
       this.hubService.leave(this.currentChannelId);
       this.currentChannelId = "";
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
