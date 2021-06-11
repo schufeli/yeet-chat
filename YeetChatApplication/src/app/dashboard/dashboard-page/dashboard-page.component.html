@@ -1,0 +1,16 @@
+<mat-sidenav-container>
+    <!-- sidenav content -->
+    <mat-sidenav #sidenav mode="side" opened id="sidenav">
+        <app-channel-list [channels]="channelList"></app-channel-list>
+        <button id="add-button" mat-fab color="accent" aria-label="Example icon button with a bookmark icon">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-sidenav>
+
+    <!-- main content -->
+    <mat-sidenav-content>
+        <!-- router outlet -->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

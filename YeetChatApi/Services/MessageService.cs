@@ -1,34 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using YeetChatApi.Data;
-using YeetChatApi.Models;
 
 namespace YeetChatApi.Services
 {
-    public class MessageService
+    public class MessageService : IMessageService
     {
-        private ApplicationDbContext DbContext { get; }
-        public MessageService(IServiceProvider services)
+        public MessageService()
         {
-            DbContext = services.GetRequiredService<ApplicationDbContext>();
-
-            Console.WriteLine(DbContext);
+            Console.WriteLine("Fuck this shit");
         }
 
-        public static async Task SaveMessage(string channelId, string author, string content)
+        public async Task SaveMessage(string channelId, string author, string content)
         {
-            var message = new Message
-            {
-                Id = Guid.NewGuid(),
-                Author = author,
-                Content = content,
-                Time = DateTime.Now,
-                ChannelId = channelId
-            };
-
-            //await DbContext.Messages.AddAsync(message);
-            //await DbContext.SaveChangesAsync();
+            Console.WriteLine($"{channelId} {author} {content}");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace YeetChatApi.Models
 {
@@ -12,7 +13,8 @@ namespace YeetChatApi.Models
         [Required]
         public string Content { get; set; }
         public DateTime Time { get; set; }
-        public virtual string ChannelId { get; set; }
+        [ForeignKey("Channel")]
+        public Guid ChannelId { get; set; }
         public virtual Channel Channel { get; set; }
     }
 }

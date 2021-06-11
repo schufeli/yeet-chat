@@ -30,6 +30,8 @@ namespace YeetChatApi
             // Add CORS to DI
             services.AddCors();
 
+            services.AddSingleton<IMessageService, MessageService>();
+
             // Add SignalR for realtime-funtionality
             services.AddSignalR();
 

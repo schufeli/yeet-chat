@@ -44,7 +44,7 @@ namespace YeetChatApi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ChannelId")
+                    b.Property<Guid>("ChannelId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
@@ -65,7 +65,9 @@ namespace YeetChatApi.Data.Migrations
                 {
                     b.HasOne("YeetChatApi.Models.Channel", "Channel")
                         .WithMany("Messages")
-                        .HasForeignKey("ChannelId");
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Channel");
                 });

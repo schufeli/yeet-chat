@@ -1,0 +1,5 @@
+<h1>Yeet Chat 🍻</h1>
+<mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let channel of channels" (click)="leave()"  (click)="join(channel.id)" [routerLink]="['channel']" [queryParams]="{ channel: channel.id }"
+    routerLinkActive="router-link-active"> {{ channel.name }} </mat-list-option>
+</mat-selection-list> 
