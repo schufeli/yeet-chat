@@ -5,7 +5,7 @@ import { User } from '../classes/user.class';
   providedIn: 'root'
 })
 export class UserService {
-  public user = new User();
+  private user = new User();
 
   constructor() { 
     

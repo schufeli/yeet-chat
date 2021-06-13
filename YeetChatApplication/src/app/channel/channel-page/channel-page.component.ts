@@ -49,6 +49,6 @@ export class ChannelPageComponent implements OnInit {
   }
 
   send(content) {
-    this.hubService.send(this.channel.id, this.userService.user.username, content.value);
+    this.hubService.send(this.channel.id, this.userService.get().username, content.value);
   }
 }
