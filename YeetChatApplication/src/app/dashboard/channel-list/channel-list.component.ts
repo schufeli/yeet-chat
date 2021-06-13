@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Channel } from 'src/app/shared/classes/channel.class';
 import { HubService } from 'src/app/shared/services/hub.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-channel-list',
@@ -12,7 +13,8 @@ export class ChannelListComponent implements OnInit {
 
   currentChannelId: string = '';
   constructor(
-    private hubService: HubService
+    private hubService: HubService,
+    private router: Router
   ) { }
 
   ngOnInit(): void { }
@@ -20,6 +22,8 @@ export class ChannelListComponent implements OnInit {
   leave() {
     if (this.currentChannelId.length > 0) {
       this.hubService.leave(this.currentChannelId);
+      this.currentChannelId = "";
+      this.router.navigate(['/dashboard']);
     }
   }
 
