@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using YeetChatApi.Data;
+using YeetChatApi.Models;
 
 namespace YeetChatApi.Services
 {
     public interface IMessageService
     {
-        Task SaveMessage(string channelId, string author, string content);
+        Task<Message> SaveMessage(string channelId, string author, string content, ApplicationDbContext context);
     }
 }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import { HubConnection } from '@aspnet/signalr';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Message } from '../classes/message.class';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class HubService {
     this.hubConnection = new signalR.HubConnectionBuilder().withUrl(environment.hub.url).build();
 
     this.hubConnection.start().then(data => {
-      console.log('Connected'); // TODO: remove after development
+      console.log('Connected');
     }).catch(error => {
       console.log('Could not connect' + error);
     });
@@ -34,8 +36,11 @@ export class HubService {
   }
 
   public receive() {
-    this.hubConnection.on("receive", (data: any) => {
-      console.log(data);
+    return new Observable(subscriber => {
+      this.hubConnection.on("receive", (message: Message) => {
+        subscriber.next(message);
+      });
     })
+    
   }
 }

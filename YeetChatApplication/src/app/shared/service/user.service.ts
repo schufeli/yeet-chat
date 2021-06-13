@@ -5,9 +5,11 @@ import { User } from '../classes/user.class';
   providedIn: 'root'
 })
 export class UserService {
-  public user: User;
+  public user = new User();
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
   /**
    * Initialize User
@@ -15,5 +17,9 @@ export class UserService {
    */
   set(username: string) {
     this.user.username = username;
+  }
+
+  get() {
+    return this.user;
   }
 }

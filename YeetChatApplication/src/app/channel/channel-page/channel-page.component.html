@@ -1,3 +1,9 @@
+<mat-list *ngIf="!this.loading">
+    <mat-list-item class="black" *ngFor="let message of channel.messages">
+        <div mat-line> {{ message.author }} </div>
+        <div mat-line> {{ message.content }} </div>
+    </mat-list-item>
+</mat-list>
 <div id="writeMessageArea">
     <div class="messageWrapper">
         <mat-form-field class="example-full-width">
@@ -6,7 +12,7 @@
             <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
             <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="send()">Send</button>
+        <button mat-raised-button color="primary" (click)="send(message)">Send</button>
     </div>
 </div>
 

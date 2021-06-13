@@ -1,8 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Channel } from 'src/app/shared/classes/channel.class';
+import { Message } from 'src/app/shared/classes/message.class';
 import { ChannelService } from 'src/app/shared/service/channel.service';
+import { UserService } from 'src/app/shared/service/user.service';
 import { HubService } from 'src/app/shared/services/hub.service';
+
 
 @Component({
   selector: 'app-channel-page',
@@ -11,11 +14,14 @@ import { HubService } from 'src/app/shared/services/hub.service';
 })
 export class ChannelPageComponent implements OnInit {
   channel: Channel;
+  loading: boolean = true;
+
 
   constructor(
     private route: ActivatedRoute,
     private channelService: ChannelService,
-    private hubService: HubService
+    private hubService: HubService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -25,9 +31,13 @@ export class ChannelPageComponent implements OnInit {
       .subscribe((channel: Channel) => {
         this.hubService.join(channel.id); // Connect to hub channel
         this.channel = channel;
+        this.loading = false;
       })
     });
-    this.hubService.receive();
+    this.hubService.receive()
+    .subscribe((message: Message) => {
+      this.channel.messages.push(message);
+    })
   }
 
   join() {
@@ -38,7 +48,7 @@ export class ChannelPageComponent implements OnInit {
     this.hubService.leave(this.channel.id);
   }
 
-  send() {
-    this.hubService.send(this.channel.id, "Kempf Fritz", "Sollten Sie wissen!!! Sonst arbeitslos");
+  send(content) {
+    this.hubService.send(this.channel.id, this.userService.user.username, content.value);
   }
 }

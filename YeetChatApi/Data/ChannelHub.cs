@@ -8,9 +8,11 @@ namespace YeetChatApi.Data
     public class ChannelHub : Hub
     {
         private IMessageService MessageService { get; }
-        public ChannelHub(IMessageService messageService) 
+        private ApplicationDbContext DbContext { get; set; }
+        public ChannelHub(IMessageService messageService, ApplicationDbContext context) 
         {
             MessageService = messageService;
+            DbContext = context;
         }
 
         public Task Join(string channelId)
@@ -27,8 +29,8 @@ namespace YeetChatApi.Data
 
         public async Task Send(string channelId, string author, string content)
         {
-            await MessageService.SaveMessage(channelId, author, content);
-            await Clients.Group(channelId).SendAsync("receive", author, content);
+            var message = await MessageService.SaveMessage(channelId, author, content, DbContext);
+            await Clients.Group(channelId).SendAsync("receive", message);
         }
     }
 }
