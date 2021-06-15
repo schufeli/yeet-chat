@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Channel } from 'src/app/shared/classes/channel.class';
 import { ChannelService } from 'src/app/shared/service/channel.service';
 import { HubService } from 'src/app/shared/services/hub.service';
@@ -10,10 +11,12 @@ import { HubService } from 'src/app/shared/services/hub.service';
 })
 export class DashboardPageComponent implements OnInit {
   channelList: Channel[] = [];
+  connected: boolean = false;
 
   constructor(
     private channelService: ChannelService,
-    private hubService: HubService
+    private hubService: HubService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -21,7 +24,6 @@ export class DashboardPageComponent implements OnInit {
     .subscribe((channels: Channel[]) => {
       this.channelList = channels;
     });
-
     this.hubService.connect();
   }
 }
