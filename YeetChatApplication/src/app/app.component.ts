@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { UserService } from './shared/service/user.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,11 +7,5 @@ import { UserService } from './shared/service/user.service';
 export class AppComponent {
   title = 'YeetChatApplication';
 
-  constructor(
-    private userService: UserService
-  ) { }
-
-  ngOnInit() {
-    this.userService.set('Burger');
-  }
+  constructor() { }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Channel } from 'src/app/shared/classes/channel.class';
-import { ChannelService } from 'src/app/shared/service/channel.service';
+import { ChannelService } from 'src/app/shared/services/channel.service';
 import { HubService } from 'src/app/shared/services/hub.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -16,6 +17,7 @@ export class DashboardPageComponent implements OnInit {
   constructor(
     private channelService: ChannelService,
     private hubService: HubService,
+    private userService: UserService,
     private router: Router
   ) { }
 
@@ -25,5 +27,10 @@ export class DashboardPageComponent implements OnInit {
       this.channelList = channels;
     });
     this.hubService.connect();
+  }
+
+  logout() {
+    this.userService.logout();
+    this.router.navigateByUrl('/');
   }
 }
