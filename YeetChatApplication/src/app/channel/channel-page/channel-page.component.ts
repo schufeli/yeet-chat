@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Channel } from 'src/app/shared/classes/channel.class';
 import { Message } from 'src/app/shared/classes/message.class';
-import { ChannelService } from 'src/app/shared/service/channel.service';
-import { UserService } from 'src/app/shared/service/user.service';
+import { ChannelService } from 'src/app/shared/services/channel.service';
 import { HubService } from 'src/app/shared/services/hub.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 
 @Component({
@@ -46,6 +46,6 @@ export class ChannelPageComponent implements OnInit {
   }
 
   send(content) {
-    this.hubService.send(this.channel.id, this.userService.get().username, content.value);
+    this.hubService.send(this.channel.id, this.userService.get(), content.value);
   }
 }

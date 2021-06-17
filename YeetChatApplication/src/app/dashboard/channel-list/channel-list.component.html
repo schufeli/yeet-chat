@@ -1,7 +1,3 @@
-<h1 class="chat_title">Yeet Chat 🍻</h1>
-<div>
-    <button mat-raised-button color="warn" (click)="dashboard()">Dashboard</button>
-</div>
 <mat-selection-list [multiple]="false" class="channel_list">
     <mat-list-option *ngFor="let channel of channels" (click)="leave()"  (click)="join(channel.id)" [routerLink]="['channel']" [queryParams]="{ channel: channel.id }"
     routerLinkActive="router-link-active"> {{ channel.name }} </mat-list-option>

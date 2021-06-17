@@ -25,10 +25,6 @@ export class ChannelListComponent implements OnInit {
     }
   }
 
-  dashboard() { // TODO: remove after development
-    this.router.navigateByUrl('dashboard');
-  }
-
   join(channelId: string) {
     this.currentChannelId = channelId;
   }

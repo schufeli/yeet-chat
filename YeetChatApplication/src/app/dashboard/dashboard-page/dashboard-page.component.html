@@ -1,6 +1,10 @@
 <mat-sidenav-container>
     <!-- sidenav content -->
     <mat-sidenav #sidenav mode="side" opened id="sidenav">
+        
+        <div class="chat-header">
+            <h1>Yeet Chat 🍻</h1> <button mat-icon-button color="warn" (click)="logout()"><mat-icon>logout</mat-icon></button>
+        </div>
         <app-channel-list [channels]="channelList"></app-channel-list>
         <button id="add-button" mat-fab color="accent" aria-label="Example icon button with a bookmark icon">
             <mat-icon>add</mat-icon>
