@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HomeModule } from './home/home.module';
-import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
     HttpClientModule,
     SharedModule,
     DashboardModule,
-    HomeModule,
-    NgxPageScrollCoreModule
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

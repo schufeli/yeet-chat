@@ -1,8 +1,9 @@
 <div class="container">
     <!-- message section -->
-    <mat-list *ngIf="!this.loading">
+    <mat-list *ngIf="!this.loading" #scrollframe>
         <mat-list-item class="black" *ngFor="let message of channel.messages">
-            <div mat-line> {{ message.author }} </div>
+            <div mat-line *ngIf="message.author == this.username" id="own-message"> {{ message.author }} </div>
+            <div mat-line *ngIf="message.author !== this.username"> {{ message.author }} </div>
             <div mat-line> {{ message.content }} </div>
         </mat-list-item>
         <div #end></div>
