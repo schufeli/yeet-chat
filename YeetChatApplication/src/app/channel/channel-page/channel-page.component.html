@@ -1,18 +1,24 @@
-<mat-list *ngIf="!this.loading">
-    <mat-list-item class="black" *ngFor="let message of channel.messages">
-        <div mat-line> {{ message.author }} </div>
-        <div mat-line> {{ message.content }} </div>
-    </mat-list-item>
-</mat-list>
-<div id="writeMessageArea">
-    <div class="messageWrapper">
-        <mat-form-field class="example-full-width">
-            <mat-label>Message</mat-label>
-            <input matInput #message maxlength="256" placeholder="Your Awesome Message. YEEEEET">
-            <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
-            <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="send(message)">Send</button>
-    </div>
+<div class="container">
+    <!-- message section -->
+    <mat-list *ngIf="!this.loading">
+        <mat-list-item class="black" *ngFor="let message of channel.messages">
+            <div mat-line> {{ message.author }} </div>
+            <div mat-line> {{ message.content }} </div>
+        </mat-list-item>
+        <div #end></div>
+    </mat-list>
+    <!-- message write section -->
+    <section id="write-message-area">
+        <form *ngIf="!this.loading"[formGroup]="form" (ngSubmit)="send()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Message</mat-label>
+                <input matInput #message name="message" formControlName="message" maxlength="256" placeholder="Your Awesome Message. YEEEEET">
+                <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
+                <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+            </mat-form-field>
+            <button mat-raised-button type="submit" color="primary">
+                <mat-icon>send</mat-icon>
+            </button>
+        </form>
+    </section>
 </div>
-

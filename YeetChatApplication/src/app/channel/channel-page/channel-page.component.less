@@ -1,25 +1,35 @@
-.black {
-    color: black;
+.container {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
 }
 
-mat-list-item {
-    color: black;
+mat-list {
+    height: 86vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    mat-list-item {
+        color: black;
+    }
 }
 
-#writeMessageArea{
+#write-message-area {
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: #a9a9a9;
-    .messageWrapper{
+    background: #a9a9a9;
+
+    form {
         padding: 2rem;
         display: flex;
         justify-content: space-between;
-        .mat-form-field{
-            width: 90%;
+
+        mat-form-field {
+            width: 80%;
         }
-    }
-    * {
-        color: white;
+
+        button {
+            height: 56.56px;
+        }
     }
 }
