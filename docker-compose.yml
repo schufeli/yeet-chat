@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+    # yeet-chat-api
+    yeet-chat-api:
+        image: registry.schuficodes.org/yeet-chat-api:latest
+        container_name: yeet-chat-api
+        environment: 
+            - VIRTUAL_HOST=yeet-chat-api.schuficodes.org
+            - LETSENCRYPT_HOST=yeet-chat-api.schuficodes.org
+            - LETSENCRYPT_EMAIL=webmaster@schuficodes.org
+            - "ConnectionStrings:DefaultConnection=Server=yeet-chat-database;Database=master;User=sa;Password=FuckEatDotCH01;"
+        depends_on: 
+            - yeet-chat-database
+
+    # yeet-chat-database
+    yeet-chat-database:
+        image: mcr.microsoft.com/mssql/server
+        container_name: yeet-chat-database
+        environment: 
+            - SA_PASSWORD=FuckEatDotCH01
+            - ACCEPT_EULA=Y
+
+    # yeet-chat-app
+    yeet-chat-app:
+        image: registry.schuficodes.org/yeet-chat-app:latest
+        container_name: yeet-chat-app
+        environment: 
+            - VIRTUAL_HOST=yeet-chat.schuficodes.org
+            - LETSENCRYPT_HOST=yeet-chat.schuficodes.org
+            - LETSENCRYPT_EMAIL=webmaster@schuficodes.org
+        
+networks:
+    default:
+        external:
+            name: webproxy

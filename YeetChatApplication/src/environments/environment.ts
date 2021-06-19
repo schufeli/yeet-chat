@@ -8,7 +8,7 @@ export const environment = {
     url: 'https://localhost:5001/api/'
   },
   hub: {
-    url: 'https://localhost:5001/channel/'
+    url: 'http://yeet-chat-api.schuficodes.org/channel/'
   }
 };
 

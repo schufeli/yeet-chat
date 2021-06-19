@@ -13,7 +13,6 @@ namespace YeetChatApi
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,22 +27,13 @@ namespace YeetChatApi
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            // Add CORS to DI
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                    builder =>
-                    {
-                        builder.WithOrigins("https://yeet-chat-api.schuficodes.org", "https://yeet-chat.schuficodes.org");
-                    });
-            });
-
             services.AddSingleton<IMessageService, MessageService>();
 
             // Add SignalR for realtime-funtionality
             services.AddSignalR();
 
             services.AddControllers();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,10 +47,14 @@ namespace YeetChatApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
+            // TODO: Remove after Development because this is very very insecure
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
@@ -81,6 +75,9 @@ namespace YeetChatApi
             {
                 // Migrate database with the provided dbcontext
                 serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+
+                // Configure necessary ServiceProvider's
+                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
                 DbSeeder.Seed(dbContext);
             }
