@@ -23,7 +23,7 @@ namespace YeetChatApi.Controllers
         {
             var channel = DbContext.Channels
                 .Where(c => c.Id == id)
-                    .Include(c => c.Messages)
+                    .Include(c => c.Messages.OrderBy(m => m.Time))
                     .FirstOrDefault();
 
             return new JsonResult(channel.Adapt<ChannelViewModel>());
